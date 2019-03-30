@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="script.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hackathon Project</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="zero">
+        <div class="one">
+            <h1>Hackathon Project</h1>
+            <p style="text-align:right;"> Current time:
+                <script type="text/javascript">
+                    now = new Date();
+                    localtime = now.toString();
+                    document.write("<strong>Local time:</strong> " + localtime);
+                </script>
+            </p>
+            <br/>
+        </div>
+        <div class="two">
+            <div class="four">
+
+               
+               <div id="map"></div>
+                
+                
+    
+    
+                <script>
+                    function initMap() {
+                        var map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 13,
+                            center: {
+                                // ATL coordinates
+                                lat: 33.7560,
+                                lng: -84.3889
+                            }
+                        });
+                        var transitLayer = new google.maps.TransitLayer();
+                        transitLayer.setMap(map);
+                        var infoWindow = new google.maps.InfoWindow;
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                                var pos = {
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude
+                                };
+                                infoWindow.setPosition(pos);
+                                infoWindow.setContent('Location found.');
+                                infoWindow.open(map);
+                                map.setCenter(pos);
+                            }, function() {
+                                handleLocationError(true, infoWindow, map.getCenter());
+                            });
+                        } else {
+                            // Browser doesn't support Geolocation
+                            handleLocationError(false, infoWindow, map.getCenter());
+                        }
+
+                        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+                            infoWindow.setPosition(pos);
+                            infoWindow.setContent(browserHasGeolocation ?
+                                'Error: The Geolocation service failed.' :
+                                'Error: Your browser doesn\'t support geolocation.');
+                            infoWindow.open(map);
+                        }
+                    }
+                </script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHUvAP5UqYKG_YEravAYaI1vccBDj8CvY&callback=initMap">
+                </script>
+
+            </div>
+            <div class="five">
+                <div class="six">
+                    <div class="button">
+                        <div class="dropdown">
+                            <form action="#" onsubmit="change_src_address();return false">
+                                <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                            </form>
+                            <h3>Click on the button to open the dropdown menu.</h3>
+                            <button onclick="myFunction()" class="dropbtn">Where to?</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <div class="nav">
+                                    <a id="stores" onClick="change_src(1);">Stores Near Me</a>
+                                    <a id="daycares" onClick="change_src(2);">Day Cares Near Me</a>
+                                    <a id="current" onClick="change_src(3);">Public Transportation</a>
+                                    <a id="current" onClick="change_src(0);">Current Location</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        /* When the user clicks on the button, 
+                                                toggle between hiding and showing the dropdown content */
+                        function myFunction() {
+                            document.getElementById("myDropdown").classList.toggle("show");
+                        }
+                        // Close the dropdown if the user clicks outside of it
+                        window.onclick = function(event) {
+                            if (!event.target.matches('.dropbtn')) {
+                                var dropdowns = document.getElementsByClassName("dropdown-content");
+                                var i;
+                                for (i = 0; i < dropdowns.length; i++) {
+                                    var openDropdown = dropdowns[i];
+                                    if (openDropdown.classList.contains('show')) {
+                                        openDropdown.classList.remove('show');
+                                    }
+                                }
+                            }
+                        }
+                    </script>
+                </div>
+                <div class="seven">
+
+                </div>
+            </div>
+        </div>
+        <div class="three">
+            <p align=left> We last worked on this site on this date:
+                <script type="text/javascript">
+                    <!-- Hide the script from old browsers
+                    document.write(document.lastModified);
+                    // Stop hiding the script -->
+                </script>
+            </p>
+        </div>
+
+    </div>
+</body>
+
+</html>
