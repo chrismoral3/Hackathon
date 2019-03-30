@@ -41,13 +41,15 @@
         	<div class="six">
             <div class="button">
         <div class="dropdown">
+	<form action="#" onsubmit="change_src_address();return false">
+	    <input type="text" name="address"placeholder="address" size = "50" id="address_field"/>
+	</form>
         <h3>Click on the button to open the dropdown menu.</h3>
 <button onclick="myFunction()" class="dropbtn">Where to?</button>
   <div id="myDropdown" class="dropdown-content">
   <div class="nav">
     <a id="stores" onClick="change_src(1);" >Stores Near Me</a>
     <a id="daycares" onClick="change_src(2);" >Day Cares Near Me</a>
-    <a id="current" onClick="change_src(3);">Public Transportation</a>
     <a id="current" onClick="change_src(0);">Current Location</a>
     
   		</div>
