@@ -1,36 +1,3 @@
-var global_urls = {
-  constant: "https://www.google.com/maps/embed/v1/search?key=AIzaSyDHUvAP5UqYKG_YEravAYaI1vccBDj8CvY&q=",
-  current:"https://www.google.com/maps/embed/v1/search?key=AIzaSyDHUvAP5UqYKG_YEravAYaI1vccBDj8CvY&q=my+current+location",
-  stores:"https://www.google.com/maps/embed/v1/search?key=AIzaSyDHUvAP5UqYKG_YEravAYaI1vccBDj8CvY&q=stores+near+me",
-  daycare:"https://www.google.com/maps/embed/v1/search?key=AIzaSyDHUvAP5UqYKG_YEravAYaI1vccBDj8CvY&q=childcare+near+me",
-  publictransp:"https://www.google.com/maps/embed/v1/search?key=AIzaSyDHUvAP5UqYKG_YEravAYaI1vccBDj8CvY&q=25+park+place",}
-
-var map_frame = null
-var address_input = null
-
-function change_src(n) {
-  switch(n) {
-    case 0:
-    map_frame.src=global_urls.current;
-    break;
-    case 1:
-    map_frame.src=global_urls.stores;
-    break;
-    case 2:
-    map_frame.src=global_urls.daycare;
-    break;
-    case 3:
-    map_frame.src=global_urls.publictransp;
-    break;
-  }
-}
-
-function change_src_address() {
-    var output = global_urls.constant+address_input.value.replace(/ /g,"+");
-    console.log(output)
-    map_iframe.src=output;
-}
-
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function myFunction() {
@@ -51,15 +18,16 @@ window.onclick = function(event) {
 }
 
 function current_time() {
-  var now = new Date();
-  var localtime = now.toString();
-  return localtime;
+  var localtime = new Date().toString();
+  document.getElementById("cur_time").innerHTML = "Current Time: "+localtime;
+  console.log("tick");
+  window.setTimeout(current_time, 1000);
 }
 
 function afterLoaded() { //init
   address_input = document.getElementById("adrsfield");
   map_frame = document.getElementById("map_iframe");
-  document.getElementById("cur_time").innerHTML = "Current Time: "+current_time();
+  window.setTimeout(current_time, 1000);
   document.getElementById("last_edited").innerHTML = "We last worked on this site on this date: "+document.lastModified;
   console.log("loaded")
 }
@@ -73,9 +41,29 @@ function loading() {
   }
 }
 
+function item_check(n) {
+  var box_id = ""//maybe useless
+  switch(n) {
+    case 0: //day cares
+    //
+    break;
+    case 1: //job centers
+    //
+    break;
+    case 2: //public transport
+    //
+    break;
+    case 3: //grocery stores
+    //
+    break;
+    default:
+    //
+  }
+}
+
 
 function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
+  var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
         center: {
             // ATL coordinates
@@ -83,8 +71,65 @@ function initMap() {
             lng: -84.443777
         }
     });
-    // 33.7490° N, 84.3880° W
-    var transitLayer = new google.maps.TransitLayer();
+  // Create the search box and link it to the UI element.
+  var input = document.getElementById('pac-input');
+  var searchBox = new google.maps.places.SearchBox(input);
+  //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  // Bias the SearchBox results towards current map's viewport.
+  map.addListener('bounds_changed', function() {
+    searchBox.setBounds(map.getBounds());
+  });
+
+  var markers = [];
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+  searchBox.addListener('places_changed', function() {
+    var places = searchBox.getPlaces();
+
+    if (places.length == 0) {
+      return;
+    }
+
+    // Clear out the old markers.
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
+    markers = [];
+
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+      var icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+      // Create a marker for each place.
+      markers.push(new google.maps.Marker({
+        map: map,
+        icon: icon,
+        title: place.name,
+        position: place.geometry.location
+      }));
+
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+  });
+  var transitLayer = new google.maps.TransitLayer();
     transitLayer.setMap(map);
     var infoWindow = new google.maps.InfoWindow;
     if (navigator.geolocation) {
@@ -94,7 +139,7 @@ function initMap() {
                 lng: position.coords.longitude
             };
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
+            infoWindow.setContent('Current Location');
             infoWindow.open(map);
             map.setCenter(pos);
         }, function() {
@@ -112,33 +157,4 @@ function initMap() {
             'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
     }
-	
-}
-
-function addMarkers(map,query){
-  console.log(pos)
-  let request = {
-    location: map.getCenter(),
-    radius: '500',
-    query: query
-  };
-
-  let service = new google.maps.places.PlacesService(map);
-  service.textSearch(request, callback);
-
-  function callback(results, status) {
-  if (status == google.maps.places.PlacesServiceStatus.OK) 
-    for(i = 0; i < results.length; i++)
-    {
-      console.log(i);
-      var marker = new google.maps.Marker({
-              map: map,
-              place: {
-                placeId: results[i].place_id,
-                location: results[i].geometry.location
-              }
-            });
-    }
-  }
-
 }
