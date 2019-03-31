@@ -112,4 +112,33 @@ function initMap() {
             'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
     }
+	
+}
+
+function addMarkers(map,query){
+  console.log(pos)
+  let request = {
+    location: map.getCenter(),
+    radius: '500',
+    query: query
+  };
+
+  let service = new google.maps.places.PlacesService(map);
+  service.textSearch(request, callback);
+
+  function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) 
+    for(i = 0; i < results.length; i++)
+    {
+      console.log(i);
+      var marker = new google.maps.Marker({
+              map: map,
+              place: {
+                placeId: results[i].place_id,
+                location: results[i].geometry.location
+              }
+            });
+    }
+  }
+
 }
