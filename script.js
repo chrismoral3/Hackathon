@@ -75,7 +75,7 @@ function item_check(n) {
     if(document.getElementById("chkOutreach").checked == true){
       m3 = addMarkers(map,"outreach","yellow");
       google.maps.event.trigger(map, 'resize');
-      console.log("public transport was clicked")
+      console.log("public Outreach was clicked")
     }  else {
         removeMarkers(m3);
         google.maps.event.trigger(map, 'resize');
