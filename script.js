@@ -51,15 +51,16 @@ window.onclick = function(event) {
 }
 
 function current_time() {
-  var now = new Date();
-  var localtime = now.toString();
-  return localtime;
+  var localtime = new Date().toString();
+  document.getElementById("cur_time").innerHTML = "Current Time: "+localtime;
+  console.log("tick");
+  window.setTimeout(current_time, 1000);
 }
 
 function afterLoaded() { //init
   address_input = document.getElementById("adrsfield");
   map_frame = document.getElementById("map_iframe");
-  document.getElementById("cur_time").innerHTML = "Current Time: "+current_time();
+  window.setTimeout(current_time, 1000);
   document.getElementById("last_edited").innerHTML = "We last worked on this site on this date: "+document.lastModified;
   console.log("loaded")
 }
