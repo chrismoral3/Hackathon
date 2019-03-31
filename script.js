@@ -98,6 +98,33 @@ function item_check(n) {
   }
 }
 
+function clear_btns() {
+  var clr_1 = document.getElementById("chkDayCares")
+  if(clr_1.checked == true){
+    removeMarkers(m1);
+    google.maps.event.trigger(map, 'resize');
+    clr_1.checked = false;
+  }
+  var clr_2 = document.getElementById("chkJobCenters")
+  if(clr_2.checked == true){
+    removeMarkers(m2);
+    google.maps.event.trigger(map, 'resize');
+    clr_2.checked = false;
+  }
+  var clr_3 = document.getElementById("chkOutreach")
+  if(clr_3.checked == true){
+    removeMarkers(m3);
+    google.maps.event.trigger(map, 'resize');
+    clr_3.checked = false;
+  }
+  var clr_4 = document.getElementById("chkGroceryStores")
+  if(clr_4.checked == true){
+    removeMarkers(m4);
+    google.maps.event.trigger(map, 'resize');
+    clr_4.checked = false;
+  }
+}
+
 var map = null;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
