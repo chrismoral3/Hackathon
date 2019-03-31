@@ -242,3 +242,41 @@ html, body {
 #target {
   width: 345px;
 }
+.topup
+{
+	background-color: #F4F32G;
+}
+.botdown
+{
+	background-color: #F4F32E;
+}
+.topr
+{
+	background-color: #3F8AA9;
+	width: 50%;
+	height: 50%;
+	float: right;
+	
+}
+
+.topl
+{
+	background-color: #3F8AA9;
+	width: 50%;
+	height: 50%;
+	float: left;
+}
+.botr
+{
+	background-color: #3F8AA9;
+	width: 50%;
+	height: 50%;
+	float: right;
+}
+.botl
+{
+	background-color: #3F8AA9;
+	width: 50%;
+	height: 50%;
+	float: left;
+}
