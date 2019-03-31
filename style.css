@@ -79,7 +79,20 @@
     border: none;
     cursor: pointer;
 }
+.button
+{
 
+	display: flex;
+	align-items: center;
+  justify-content: center;
+	  background-color: #000080;
+  border: none;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+}
 .dropbtn:hover, .dropbtn:focus {
     background-color: #3e8e41;
 }
@@ -201,6 +214,7 @@ html, body {
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
   width: 400px;
+	height: 30px;
 	border: solid black 1px;
 }
 
