@@ -126,11 +126,18 @@
 .test2
 {
 	border: solid black 1px;
-	margin-left: 150px;
+	margin-left: 170px;
+	float: left
 }
 .test3
 {
 	border: solid black 2px;
+}
+.test4
+{
+	border: solid black 1px;
+	 
+	float: right;
 }
 .dropdown a:hover {background-color: #f1f1f1;}
 
@@ -141,11 +148,14 @@
 
 }
 
+
 @-ms-viewport{
   width: device-width;
 }
 
-
+.wrapper {
+  display: inline-block;
+}
 
 
 #map {
