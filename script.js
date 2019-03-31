@@ -26,7 +26,7 @@ function current_time() {
 
 function afterLoaded() { //init
   address_input = document.getElementById("adrsfield");
-  map_frame = document.getElementById("map_iframe");
+  //map_frame = document.getElementById("map_iframe");
   window.setTimeout(current_time, 1000);
   document.getElementById("last_edited").innerHTML = "Last update service: "+document.lastModified;
   console.log("loaded")
