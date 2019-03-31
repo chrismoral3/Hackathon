@@ -25,7 +25,7 @@ function current_time() {
 
 function afterLoaded() { //init
   address_input = document.getElementById("adrsfield");
-  map_frame = document.getElementById("map_iframe");
+  //map_frame = document.getElementById("map_iframe");
   window.setTimeout(current_time, 1000);
   document.getElementById("last_edited").innerHTML = "We last worked on this site on this date: "+document.lastModified;
   console.log("loaded")
@@ -124,6 +124,15 @@ function clear_btns() {
     clr_4.checked = false;
   }
 }
+
+function fill_btns() {
+	chkDayCares.click();
+	chkJobCenters.click();
+	chkOutreach.click();
+	chkGroceryStores.click();
+	
+}
+
 
 var map = null;
 function initMap() {
