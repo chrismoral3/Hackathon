@@ -126,10 +126,30 @@ function clear_btns() {
 }
 
 function fill_btns() {
-	chkDayCares.click();
-	chkJobCenters.click();
-	chkOutreach.click();
-	chkGroceryStores.click();
+	  var clr_1 = document.getElementById("chkDayCares")
+  if(clr_1.checked == false){
+    m1 = addMarkers(map,"day cares","red");
+    google.maps.event.trigger(map, 'resize');
+    clr_1.checked = true;
+  }
+  var clr_2 = document.getElementById("chkJobCenters")
+  if(clr_2.checked == false){
+    m2 = addMarkers(map,"job centers","blue");
+    google.maps.event.trigger(map, 'resize');
+    clr_2.checked = true;
+  }
+  var clr_3 = document.getElementById("chkOutreach")
+  if(clr_3.checked == false){
+    m3 = addMarkers(map,"outreach","yellow");
+    google.maps.event.trigger(map, 'resize');
+    clr_3.checked = true;
+  }
+  var clr_4 = document.getElementById("chkGroceryStores")
+  if(clr_4.checked == false){
+    m4 = addMarkers(map,"grocery stores","green");
+    google.maps.event.trigger(map, 'resize');
+    clr_4.checked = true;
+  }
 	
 }
 
