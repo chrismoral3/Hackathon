@@ -37,17 +37,14 @@
 
                
                <div id="map"></div>
-                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHUvAP5UqYKG_YEravAYaI1vccBDj8CvY&callback=initMap">
-                </script>
+                
 
             </div>
             <div class="five">
                 <div class="six">
                     <div class="button">
                         <div class="dropdown">
-                            <form action="#" onsubmit="change_src_address();return false">
                                 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                            </form>
                             <h3>Click on the button to open the dropdown menu.</h3>
                             <button onclick="myFunction()" class="dropbtn">Where to?</button>
                             <div id="myDropdown" class="dropdown-content">
@@ -75,6 +72,8 @@
     </div>
     <script type="text/javascript">
             afterLoaded();
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHUvAP5UqYKG_YEravAYaI1vccBDj8CvY&libraries=places&callback=initMap">
     </script>
 </body>
 
